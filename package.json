@@ -1,0 +1,14 @@
+{
+  "name": "teamspeak-poke-bot",
+  "version": "1.0.0",
+  "description": "A teamspeak bot that pokes certain groups when a user joins a certain channel",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "James Moffett",
+  "license": "ISC",
+  "dependencies": {
+    "ts3-nodejs-library": "^3.5.1"
+  }
+}
