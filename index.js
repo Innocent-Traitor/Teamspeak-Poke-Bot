@@ -29,6 +29,8 @@ TeamSpeak.connect({
 
 
 function pokeGroup(clientRequest, channelObj, teamspeak) {
+    let clientArr = []
+
     // Iterate through channels
     for (let channelName in config.pokeChannels) {
         let channel = config.pokeChannels[channelName];
@@ -45,17 +47,21 @@ function pokeGroup(clientRequest, channelObj, teamspeak) {
                         for (let i = 0; i < clients.length; i++) {
                             // Get the client ID from their Database ID
                             teamspeak.getClientByDbid(clients[i].cldbid).then(client => {
-                                // Check to see if the client is online
                                 if (client !== undefined) {
-                                    // Pokes the client (management member)
-                                    teamspeak.clientPoke(client.propcache.clid, config.pokeMessage(clientRequest.propcache.clientNickname, channel.channelName));
-                                    numOfClients++;
+                                    clientArr.push(client.propcache.clid)
                                 }
                             })
                         }
                     })
                 }
                 setTimeout(() => { // Send the poke after a second to allow the promises to be fulfilled
+                    let newArr = [...new Set(clientArr)]
+
+                    for (let client in newArr) {
+                        teamspeak.clientPoke(newArr[client], config.pokeMessage(clientRequest.propcache.clientNickname, channel.channelName))
+                        numOfClients++;
+                    }
+
                     if (numOfClients == 0) {
                         teamspeak.clientPoke(clientRequest.propcache.clid, config.pokeMessageNone);
                     } 
