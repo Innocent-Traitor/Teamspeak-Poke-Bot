@@ -14,4 +14,5 @@ Supports:
 ## Support
 
 If you have any questions or feature requests, please DM me on discord: innocent_traitor
+
 You can also email me at james.moffett@moonsoftstudios.com
