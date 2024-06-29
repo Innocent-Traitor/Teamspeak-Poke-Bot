@@ -48,7 +48,8 @@ function pokeGroup(clientRequest, channelObj, teamspeak) {
                             // Get the client ID from their Database ID
                             teamspeak.getClientByDbid(clients[i].cldbid).then(client => {
                                 if (client !== undefined) {
-                                    clientArr.push(client.propcache.clid)
+                                    clientArr.push(client);
+                                    //client.propcahce.clid
                                 }
                             })
                         }
@@ -56,10 +57,23 @@ function pokeGroup(clientRequest, channelObj, teamspeak) {
                 }
                 setTimeout(() => { // Send the poke after a second to allow the promises to be fulfilled
                     let newArr = [...new Set(clientArr)]
+                    let doSecondary = false;
 
+                    // Check if the channel has secondary IDs
+                    if (channel.secondaryID.length > 0) {
+                        doSecondary = true;
+                    }
                     for (let client in newArr) {
-                        teamspeak.clientPoke(newArr[client], config.pokeMessage(clientRequest.propcache.clientNickname, channel.channelName))
-                        numOfClients++;
+                        if (doSecondary){
+                            if (newArr[client].propcache.clientServergroups.includes(channel.secondaryID[0])) {
+                                teamspeak.clientPoke(newArr[client].propcache.clid, config.pokeMessage(clientRequest.propcache.clientNickname, channel.channelName))
+                                numOfClients++;
+                            }
+                        }
+                        else { 
+                            teamspeak.clientPoke(newArr[client].propcache.clid, config.pokeMessage(clientRequest.propcache.clientNickname, channel.channelName))
+                            numOfClients++;
+                        }
                     }
 
                     if (numOfClients == 0) {
