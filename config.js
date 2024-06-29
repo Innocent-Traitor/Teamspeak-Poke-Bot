@@ -9,8 +9,10 @@ module.exports = {
         /*
         pokeExample: {
             enabled: true, // Enable Poke
+            channelName: "Requesting Staff", // Name of the channel for the poke message
             channelID: "000", // Channel to watch for new users
-            groupIDs: ["000"] // Groups to Poke when user joins channel
+            groupIDs: ["000"], // Groups to Poke when user joins channel
+            secondaryID: [] // Only poke if they are also in this group (such as different staff teams)
         },
         */
     },
