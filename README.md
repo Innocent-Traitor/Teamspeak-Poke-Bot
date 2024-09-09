@@ -8,8 +8,15 @@ Supports:
 - Informs requesting user is no members are present to answer the poke
 
 ## Install
+1. Download the code from Github
+2. Run 'npm install' while in root folder
+3. Adjust config.js to your liking
+4. Run script via 'node index.js'
 
 ## Config
+Config is explained the default config.js file. An example is also provided. You can have multiple poke channels for different roles.
+
+You can adjust the messages the bot sends in the last 3 variables, they are limited by Teamspeaks poke message character limit.
 
 ## Support
 
